@@ -41,6 +41,19 @@ func (d deck) toString() string {
 	return strings.Join([]string(d), ",")
 }
 
+func newDeckFromFile(filename string) deck {
+	bs, err := os.ReadFile(filename)
+	if err != nil {
+		fmt.Println("[ERROR] ", err)
+		os.Exit(1)
+	}
+
+	str := string(bs)
+	strArr := strings.Split(str, ",")
+
+	return deck(strArr)
+}
+
 func (d deck) saveToFile(filename string) error {
 	// 0666 == anyone can read/write
 	return os.WriteFile(filename, []byte(d.toString()), 0666)
