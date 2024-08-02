@@ -6,6 +6,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"time"
 )
 
 // Create a new type of 'deck'
@@ -55,9 +56,14 @@ func newDeckFromFile(filename string) deck {
 	return deck(strArr)
 }
 
+// mutates the caller
 func (d deck) shuffle() {
+	seed := time.Now().UnixNano()
+	source := rand.NewSource(seed)
+	r := rand.New(source)
+
 	for i := range d {
-		randIdx := rand.Intn(len(d) - 1)
+		randIdx := r.Intn(len(d) - 1)
 		d[i], d[randIdx] = d[randIdx], d[i]
 	}
 }
