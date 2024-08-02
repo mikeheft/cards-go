@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 	"strconv"
 	"strings"
 )
@@ -31,12 +32,18 @@ func (d deck) print() {
 	}
 }
 
+// This is to show the differences. IMO this should be a receiver
 func deal(d deck, handSize int) (deck, deck) {
 	return d[:handSize], d[handSize:]
 }
 
 func (d deck) toString() string {
 	return strings.Join([]string(d), ",")
+}
+
+func (d deck) saveToFile(filename string) error {
+	// 0666 == anyone can read/write
+	return os.WriteFile(filename, []byte(d.toString()), 0666)
 }
 
 func makeCardSlices() []string {
