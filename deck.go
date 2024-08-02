@@ -80,5 +80,6 @@ func makeCardSlices() []string {
 	for i := 2; i <= 10; i++ {
 		numberCards = append(numberCards, strconv.Itoa(i))
 	}
+
 	return append(numberCards, faceCards...)
 }
